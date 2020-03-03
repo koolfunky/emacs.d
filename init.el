@@ -48,9 +48,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (counsel ivy fzf projectile-speedbar projectile python-mode php-mode doom-themes doom)))
+ '(package-selected-packages (quote (elisp-format undo-tree counsel ivy fzf projectile-speedbar
+                                                  projectile python-mode php-mode doom-themes
+                                                  doom)))
  '(safe-local-variable-values (quote ((magit-todos-exclude-globs "*.json")))))
 
 (custom-set-faces
