@@ -1,30 +1,24 @@
 ;; Melpa
 (require 'package)
-(add-to-list 'package-archives
-             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
 
-; list the packages to initialize
-(setq package-list
-    '(python-environment deferred epc
-        flycheck jedi doom doom-themes elpy
-        yasnippet highlight-indentation projectile
-        sql-indent sql auto-complete magit minimap popup))
+;; list the packages to initialize
+(setq package-list '(python-environment deferred epc ivy fzf flycheck jedi doom doom-themes elpy
+                                        counsel yasnippet highlight-indentation projectile
+                                        sql-indent sql auto-complete magit minimap popup undo-tree))
 
-; activate all the packages
+;; activate all the packages
 (package-initialize)
 
-; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
+;; fetch the list of packages available
+(unless package-archive-contents (package-refresh-contents))
 
-; install the missing packages
+;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -32,6 +26,22 @@
 ;; Use php-mode for `.inc` and `.php`
 (add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+
+;; Trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Ivy
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+
+;;; undo-tree
+(global-undo-tree-mode)
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-lazy-drawing nil)
+(setq undo-tree-auto-save-history t)
+(let ((undo-dir (expand-file-name "undo" user-emacs-directory)))
+  (setq undo-tree-history-directory-alist (list (cons "." undo-dir))))
 
 ;; 4 spaces tabs
 (setq-default indent-tabs-mode nil)
@@ -49,7 +59,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (projectile python-mode php-mode doom-themes doom)))
+ '(package-selected-packages (quote (elisp-format undo-tree counsel ivy fzf projectile-speedbar
+                                                  projectile python-mode php-mode doom-themes
+                                                  doom)))
  '(safe-local-variable-values (quote ((magit-todos-exclude-globs "*.json")))))
 
 (custom-set-faces
@@ -58,4 +70,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
