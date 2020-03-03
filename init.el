@@ -1,30 +1,24 @@
 ;; Melpa
 (require 'package)
-(add-to-list 'package-archives
-             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
 
-; list the packages to initialize
-(setq package-list
-    '(python-environment deferred epc ivy fzf
-        flycheck jedi doom doom-themes elpy counsel
-        yasnippet highlight-indentation projectile
-        sql-indent sql auto-complete magit minimap popup))
+;; list the packages to initialize
+(setq package-list '(python-environment deferred epc ivy fzf flycheck jedi doom doom-themes elpy
+                                        counsel yasnippet highlight-indentation projectile
+                                        sql-indent sql auto-complete magit minimap popup undo-tree))
 
-; activate all the packages
+;; activate all the packages
 (package-initialize)
 
-; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
+;; fetch the list of packages available
+(unless package-archive-contents (package-refresh-contents))
 
-; install the missing packages
+;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
