@@ -6,7 +6,6 @@
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
-
 ;; list the packages to initialize
 (setq package-list '(python-environment deferred epc ivy fzf flycheck jedi doom doom-themes elpy
                                         counsel yasnippet highlight-indentation projectile
@@ -22,6 +21,9 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+;; Remove menu bar
+(menu-bar-mode -1)
 
 ;; Use php-mode for `.inc` and `.php`
 (add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
