@@ -27,6 +27,9 @@
 (add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 
+;; Trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; Ivy
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
