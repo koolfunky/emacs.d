@@ -35,6 +35,14 @@
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 
+;;; undo-tree
+(global-undo-tree-mode)
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-lazy-drawing nil)
+(setq undo-tree-auto-save-history t)
+(let ((undo-dir (expand-file-name "undo" user-emacs-directory)))
+  (setq undo-tree-history-directory-alist (list (cons "." undo-dir))))
+
 ;; 4 spaces tabs
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
