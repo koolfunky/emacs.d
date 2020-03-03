@@ -13,7 +13,7 @@
 ; list the packages to initialize
 (setq package-list
     '(python-environment deferred epc
-        flycheck jedi doom elpy
+        flycheck jedi doom doom-themes elpy
         yasnippet highlight-indentation projectile
         sql-indent sql auto-complete magit minimap popup))
 
