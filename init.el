@@ -1,37 +1,39 @@
 ;; Melpa
 (require 'package)
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
+;; --------------------------- Packages initialization ---------------------------
 ;; list the packages to initialize
 (setq package-list '(python-environment deferred epc ivy fzf flycheck jedi doom doom-themes elpy
-                                        counsel yasnippet highlight-indentation projectile
+                                        php-mode counsel yasnippet highlight-indentation projectile
                                         sql-indent sql auto-complete magit minimap popup undo-tree))
-
 ;; activate all the packages
 (package-initialize)
-
 ;; fetch the list of packages available
 (unless package-archive-contents (package-refresh-contents))
-
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
+;; --------------------------- Layout ---------------------------
 ;; Remove menu bar
 (menu-bar-mode -1)
+;; Theme
+(load-theme 'doom-one t)
 
+;; --------------------------- Files Binding ---------------------------
 ;; Use php-mode for `.inc` and `.php`
 (add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 
+;; --------------------------- Hooks ---------------------------
 ;; Trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; --------------------------- Packages configuractions ---------------------------
 ;; Ivy
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
@@ -50,11 +52,11 @@
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
+;; --------------------------- Key Bindings ---------------------------
+;; Swiper
+(global-set-key (kbd "C-s") 'Swiper)
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
-
-;; Theme
-(load-theme 'doom-one t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
