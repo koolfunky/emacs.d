@@ -8,15 +8,16 @@
 ;; list the packages to initialize
 (setq package-list '(python-environment deferred epc ivy fzf flycheck jedi doom doom-themes elpy
                                         php-mode counsel yasnippet highlight-indentation projectile
-                                        sql-indent sql auto-complete magit minimap popup undo-tree))
-;; activate all the packages
-(package-initialize)
+                                        sql-indent sql auto-complete magit minimap popup undo-tree
+                                        json-mode yaml-mode))
 ;; fetch the list of packages available
 (unless package-archive-contents (package-refresh-contents))
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+;; activate all the packages
+(package-initialize)
 
 ;; --------------------------- Layout ---------------------------
 ;; Remove menu bar
@@ -63,9 +64,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (elisp-format undo-tree counsel ivy fzf projectile-speedbar
-                                                  projectile python-mode php-mode doom-themes
-                                                  doom)))
+ '(package-selected-packages (quote (json-mode elisp-format undo-tree counsel ivy fzf
+                                               projectile-speedbar projectile python-mode php-mode
+                                               doom-themes doom)))
  '(safe-local-variable-values (quote ((magit-todos-exclude-globs "*.json")))))
 
 (custom-set-faces
