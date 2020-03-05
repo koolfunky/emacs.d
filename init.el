@@ -63,7 +63,7 @@
 
 ;; --------------------------- Key Bindings ---------------------------
 ;; Swiper
-(global-set-key (kbd "C-s") 'Swiper)
+(global-set-key (kbd "C-s") 'swiper)
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
