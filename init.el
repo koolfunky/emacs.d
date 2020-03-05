@@ -66,6 +66,9 @@
 (global-set-key (kbd "C-s") 'swiper)
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
+;; fzf
+(global-set-key (kbd "C-x p f") 'fzf)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
