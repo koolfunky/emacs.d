@@ -28,6 +28,8 @@
 (menu-bar-mode -1)
 ;; Delete when writing over selection
 (delete-selection-mode 1)
+;; Auto close bracket insertion.
+(electric-pair-mode 1)
 ;; Theme
 (load-theme 'doom-one t)
 
