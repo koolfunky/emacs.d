@@ -9,19 +9,25 @@
 (setq package-list '(python-environment deferred epc ivy fzf flycheck jedi doom doom-themes elpy
                                         php-mode counsel yasnippet highlight-indentation projectile
                                         sql-indent sql auto-complete magit minimap popup undo-tree
-                                        json-mode yaml-mode))
+                                        json-mode yaml-mode auto-package-update))
+;; activate all the packages
+(package-initialize)
 ;; fetch the list of packages available
 (unless package-archive-contents (package-refresh-contents))
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-;; activate all the packages
-(package-initialize)
+;; Updates packages
+(auto-package-update-maybe)
+(add-hook 'auto-package-update-before-hook (lambda ()
+                                             (message "I will update packages now")))
 
 ;; --------------------------- Layout ---------------------------
 ;; Remove menu bar
 (menu-bar-mode -1)
+;; Delete when writing over selection
+(delete-selection-mode 1)
 ;; Theme
 (load-theme 'doom-one t)
 
