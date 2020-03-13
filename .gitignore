@@ -9,3 +9,19 @@
 
 # Undo-tree save-files
 *.~undo-tree
+
+# Auto-update files
+.last-package-update-day
+
+# Python-mode
+.python-environments/
+
+# Auto-completion
+ac-comphist.dat
+
+# Elpa packages loads
+elpa/
+
+# Recent Files
+recentf
+transient/
