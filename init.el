@@ -10,7 +10,7 @@
                                         php-mode counsel yasnippet highlight-indentation projectile
                                         sql-indent sql auto-complete magit minimap popup undo-tree
                                         json-mode yaml-mode auto-package-update phpactor
-                                        company-phpactor))
+                                        company-phpactor terraform-mode terraform-doc))
 ;; activate all the packages
 (package-initialize)
 ;; fetch the list of packages available
@@ -58,9 +58,8 @@
   (setq undo-tree-history-directory-alist (list (cons "." undo-dir))))
 
 ;; phpactor
-(with-eval-after-load 'php-mode
-  (define-key php-mode-map (kbd "M-.") #'phpactor-goto-definition)
-  (define-key php-mode-map (kbd "M-?") #'phpactor-find-references))
+(with-eval-after-load 'php-mode (define-key php-mode-map (kbd "M-.") #'phpactor-goto-definition)
+                      (define-key php-mode-map (kbd "M-?") #'phpactor-find-references))
 
 ;; 4 spaces tabs
 (setq-default indent-tabs-mode nil)
@@ -81,9 +80,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (auto-package-update json-mode elisp-format undo-tree counsel ivy fzf projectile-speedbar projectile python-mode php-mode doom-themes doom)))
+ '(package-selected-packages (quote (terraform-doc terraform-mode auto-package-update json-mode
+                                                   elisp-format undo-tree counsel ivy fzf
+                                                   projectile-speedbar projectile python-mode
+                                                   php-mode doom-themes doom)))
  '(safe-local-variable-values (quote ((magit-todos-exclude-globs "*.json")))))
 
 (custom-set-faces
