@@ -44,6 +44,9 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; --------------------------- Packages configuractions ---------------------------
+;; Auto-complete
+(global-auto-complete-mode t)
+
 ;; Ivy
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
