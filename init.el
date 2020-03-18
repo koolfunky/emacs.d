@@ -44,6 +44,11 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; --------------------------- Packages configuractions ---------------------------
+;; 4 spaces tabs
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
 ;; Auto-complete
 (global-auto-complete-mode t)
 
@@ -52,22 +57,17 @@
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 
-;;; undo-tree
+;; Phpactor
+(with-eval-after-load 'php-mode (define-key php-mode-map (kbd "M-.") #'phpactor-goto-definition)
+                      (define-key php-mode-map (kbd "M-?") #'phpactor-find-references))
+
+;; Undo-tree
 (global-undo-tree-mode)
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-visualizer-lazy-drawing nil)
 (setq undo-tree-auto-save-history t)
 (let ((undo-dir (expand-file-name "undo" user-emacs-directory)))
   (setq undo-tree-history-directory-alist (list (cons "." undo-dir))))
-
-;; phpactor
-(with-eval-after-load 'php-mode (define-key php-mode-map (kbd "M-.") #'phpactor-goto-definition)
-                      (define-key php-mode-map (kbd "M-?") #'phpactor-find-references))
-
-;; 4 spaces tabs
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
 
 ;; --------------------------- Key Bindings ---------------------------
 ;; Swiper
