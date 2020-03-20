@@ -24,6 +24,14 @@
 (add-hook 'auto-package-update-before-hook (lambda ()
                                              (message "I will update packages now")))
 
+;; --------------------------- General ---------------------------
+;; Set user venv
+(setq user (getenv "USER"))
+;; Kill buffer message
+(kill-buffer "*Messages*")
+;; Smooth scrolling
+(setq scroll-step 1)
+
 ;; --------------------------- Layout ---------------------------
 ;; Remove menu bar
 (menu-bar-mode -1)
@@ -33,6 +41,16 @@
 (electric-pair-mode 1)
 ;; Theme
 (load-theme 'doom-one t)
+;; Show time in the mode line.
+(setq display-time-24hr-format 1)
+;; UTF-8
+(setq locale-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+;; Smooth scrolling
+(setq scroll-step 1)
+;; Highlight selected region.
+(transient-mark-mode 1)
 
 ;; --------------------------- Files Binding ---------------------------
 ;; Use php-mode for `.inc` and `.php`
