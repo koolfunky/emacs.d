@@ -46,3 +46,9 @@ jobs:
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
+
+    - uses: leotaku/elisp-check@master
+      with:
+  	file: '*.el'
+  	ignore_warnings: false
+  	warnings_as_errors: true
