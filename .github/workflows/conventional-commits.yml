@@ -1,0 +1,20 @@
+name: Conventional Commits
+
+on: [pull_request]
+
+jobs:
+  commits-lint:
+    name: Commits Lint
+    runs-on: ubuntu-latest
+    if:  startsWith(github.head_ref, 'dependabot') == false
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check Conventional Commit
+        uses: wagoid/commitlint-github-action@v5
+      - name: Block Fixup Commit Merge
+        uses: xt0rted/block-autosquash-commits-action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
