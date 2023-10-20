@@ -14,6 +14,16 @@
 
 (load-theme 'wombat)
 
+(column-number-mode)
+(global-display-line-numbers-mode t)
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
 ;; Initialize package sources
 (require 'package)
 
@@ -31,7 +41,6 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
 
 ;; Initialize Ivy
 (use-package ivy
@@ -101,11 +110,15 @@
   :after projectile
   :config (counsel-projectile-mode))
 
-(use-package typescript-mode
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred)
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
   :config
-  (setq typescript-indent-level 2))
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
+
+(use-package vundo
+  :bind ("C-x u" . vundo))
 
 (use-package auto-package-update
   :custom
@@ -116,13 +129,32 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
+
+(use-package docker-compose-mode)
+
+;; Temporarily remove warning about docker-tramp deprecation in Emacs 29.x.
+(when (not (version< emacs-version "29.0"))
+  (with-eval-after-load 'tramp-compat
+    (assq-delete-all 'docker-tramp after-load-alist)))
+
+(use-package docker
+  :defer t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(typescript-mode counsel-projectile forge magit doom-modeline counsel ivy)))
+   '(vundo rainbow-delimiters docker docker-compose-mode auto-package-update typescript-mode counsel-projectile forge magit doom-modeline counsel ivy)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
