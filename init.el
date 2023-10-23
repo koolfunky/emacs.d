@@ -1,3 +1,10 @@
+;;; init.el --- .Emacs Configuration -*- lexical-binding: t -*-
+;;; Commentary:
+;;
+;; Emacs!!!
+
+;;; Code:
+
 (setq inhibit-startup-message t)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
@@ -11,8 +18,6 @@
 
 ;; Set up the visible bell
 (setq visible-bell t)
-
-(load-theme 'tango-dark)
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -42,48 +47,21 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;; Initialize Ivy
-(use-package ivy
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-j" . ivy-next-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
-  :config
-  (ivy-mode 1))
-
-(use-package counsel
-  :bind (("C-x b" . 'counsel-switch-buffer)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history))
+(use-package auto-package-update
   :custom
-  (counsel-osx-app-format-function #'counsel-osx`-app-format-function-name-only)
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
   :config
-  (counsel-mode 1))
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
 
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
+;;; Modules directory
+(push (concat user-emacs-directory "modules") load-path)
 
-(use-package magit
-  :commands magit-status
-  :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-;; NOTE: Make sure to configure a GitHub token before using this package!
-;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-(use-package forge
-  :after magit)
+(require 'init-interface)
+(require 'init-doom-theme)
+(require 'init-git)
 
 (use-package projectile
   :diminish projectile-mode
@@ -110,24 +88,8 @@
   :after projectile
   :config (counsel-projectile-mode))
 
-(use-package which-key
-  :defer 0
-  :diminish which-key-mode
-  :config
-  (which-key-mode)
-  (setq which-key-idle-delay 0.3))
-
 (use-package vundo
   :bind ("C-x u" . vundo))
-
-(use-package auto-package-update
-  :custom
-  (auto-package-update-interval 7)
-  (auto-package-update-prompt-before-update t)
-  (auto-package-update-hide-results t)
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "09:00"))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -162,6 +124,7 @@
          (typescript-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
 
+
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
@@ -194,13 +157,22 @@
 (use-package docker
   :defer t)
 
+(use-package dotenv-mode
+  :mode ("\\.env\\'" . dotenv-mode))
+
+(use-package kubel
+  :after (vterm)
+  :config (kubel-vterm-setup))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "be84a2e5c70f991051d4aaf0f049fa11c172e5d784727e0b525565bb1533ec78" default))
  '(package-selected-packages
-   '(tide vundo rainbow-delimiters docker docker-compose-mode auto-package-update typescript-mode counsel-projectile forge magit doom-modeline counsel ivy)))
+   '(dotenv-mode doom-themes kubel code-review tide vundo rainbow-delimiters docker docker-compose-mode auto-package-update typescript-mode counsel-projectile forge magit doom-modeline counsel ivy)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
